@@ -11,12 +11,17 @@ server.on("error", (err) => {
 })
 
 server.on("message", (msg, rinfo) => {
-  console.log(`[${new Date().toISOString()}] ${rinfo.address}:${rinfo.port}`)
-  console.log(`📦 Message: ${msg.toString("utf8")} (${msg.length} bytes)`)
+  const hex = msg.toString("hex")
+  const ascii = msg.toString("ascii")
+  const base64 = msg.toString("base64")
 
-  // Optional: send back a response
-  // const response = Buffer.from("ACK");
-  // server.send(response, rinfo.port, rinfo.address);
+  console.log(
+    `[${new Date().toISOString()}] From ${rinfo.address}:${rinfo.port}`
+  )
+  console.log("📦 Raw Buffer:", msg)
+  console.log("📦 ASCII:", ascii)
+  console.log("📦 Hex:", hex)
+  console.log("📦 Base64:", base64)
 })
 
 server.on("listening", () => {
